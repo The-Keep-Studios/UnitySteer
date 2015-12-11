@@ -249,6 +249,8 @@ namespace UnitySteer.Behaviors
             get { return Time.deltaTime; }
         }
 
+        public float ForwardSpeed { get { return Velocity.z; } }
+
         #endregion
 
         #region Unity methods
