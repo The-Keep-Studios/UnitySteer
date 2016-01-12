@@ -84,8 +84,8 @@ namespace UnitySteer.Behaviors
             }
             else
             {
-                var rate = TargetSpeed > _speed ? _accelerationRate : _decelerationRate;
-                _speed = Mathf.Lerp(_speed, targetSpeed, deltaTime * rate);
+                float rate = TargetSpeed > _speed ? _accelerationRate : _decelerationRate;
+                _speed = Mathf.SmoothStep(_speed, targetSpeed, deltaTime * rate);
             }
 
             return Velocity * deltaTime;

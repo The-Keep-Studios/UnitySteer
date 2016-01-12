@@ -28,6 +28,8 @@ namespace UnitySteer.Behaviors
         /// </summary>
         [SerializeField] private Vector3 _distance;
 
+        private Vector3 _lastTargetPosition = Vector3.zero;
+
 
         /// <summary>
         /// The target.
@@ -63,9 +65,15 @@ namespace UnitySteer.Behaviors
         /// </returns>
         protected override Vector3 CalculateForce()
         {
-            return (Target == null)
+            Vector3 targetVelocity = Target.position - _lastTargetPosition;
+            _lastTargetPosition = Target.position;
+            Vector3 force = (Target == null)
                 ? Vector3.zero
-                : Vehicle.GetSeekVector(Target.TransformPoint(_distance), _considerVelocity);
+                : Vehicle.GetSeekVector(Target.TransformPoint(_distance) + targetVelocity, _considerVelocity);
+
+
+
+            return force;
         }
     }
 }
